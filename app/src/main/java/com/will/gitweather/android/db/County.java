@@ -3,7 +3,7 @@ package com.will.gitweather.android.db;
 import org.litepal.crud.DataSupport;
 
 /**
- * 县/区实体类
+ * 县实体类
  */
 
 public class County extends DataSupport {
