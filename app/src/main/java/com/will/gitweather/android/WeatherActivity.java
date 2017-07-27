@@ -1,6 +1,7 @@
 package com.will.gitweather.android;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.will.gitweather.android.gson.Forecast;
 import com.will.gitweather.android.gson.Weather;
+import com.will.gitweather.android.service.AutoUpdateService;
 import com.will.gitweather.android.util.HttpUtil;
 import com.will.gitweather.android.util.Utility;
 
@@ -153,7 +155,7 @@ public class WeatherActivity extends AppCompatActivity {
                             editor.putString("weather", responseText);
                             editor.apply();
                             showWeatherInfo(weather);
-                            mWeatherId = weatherId;     // 修改刷新回到初始化的地区的 BUG
+                            mWeatherId = weatherId;     // 修改更该地区刷新后回到初始化地区的bug
                         } else {
                             Toast.makeText(WeatherActivity.this, "获取天气信息失败", Toast.LENGTH_SHORT).show();
                         }
@@ -243,6 +245,9 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText.setText(carWash);
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
+
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 
 }
